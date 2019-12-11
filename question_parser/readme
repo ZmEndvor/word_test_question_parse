@@ -1,0 +1,27 @@
+# parse.py里可能有django的残留内容 如果不能运行注意修改一下
+
+from parse import WordQuestionEntity
+try:
+    entity = WordQuestionEntity(
+        word=word_path,
+        site=分校id,
+        subject_id=学科id
+        user=用户,
+        chapters=章节,
+        nodes=知识点
+    )
+    parser = entity.parse_word()
+    succeed_count = parser.created_question_count
+
+except Exception as exc:
+    # import traceback
+    # traceback.print_exc()
+    errors = exc.args[0] if exc.args else ''
+
+    if entity:
+        entity.clear_rubbish_list()
+
+finally:
+    if entity:
+        entity.clear_word()
+
